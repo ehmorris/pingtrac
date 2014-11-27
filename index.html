@@ -111,10 +111,7 @@ Score = (function() {
       return $('.next_server').addClass('active');
     }
     if (this.win_condition()) {
-      Total = 0;
-      this.score = 0;
       return $('.win').addClass('active');
-      this.render();
     }
   };
 
@@ -131,7 +128,7 @@ Score = (function() {
   };
 
   Score.prototype.win_condition = function() {
-    return this.score >= 21;
+    return this.score > 20;
   };
 
   return Score;
@@ -139,8 +136,11 @@ Score = (function() {
 
 $(function() {
   var score1, score2;
-  $('.next_server, .win').click(function() {
+  $('.next_server').click(function() {
     return $(this).removeClass('active');
+  });
+  $('.win').click(function() {
+    location.reload();
   });
   score1 = new Score(0, $('.score1'));
   score2 = new Score(0, $('.score2'));
