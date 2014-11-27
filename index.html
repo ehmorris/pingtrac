@@ -4,7 +4,8 @@
 
 <style>
   body {
-    padding: 0;
+  	overflow: hidden;
+    	padding: 0;
 	margin: 0;
 	font-family: sans-serif;
 	-webkit-user-select: none;
@@ -12,7 +13,7 @@
   }
 
   .score1, .score2 {
-    position: absolute;
+    	position: absolute;
 	top: 0;
 	bottom: 0;
 	width: 50%;
@@ -22,19 +23,27 @@
   }
   
   .score1 {
-    left: 0;
+    	left: 0;
   }
   
   .score2 {
-    right: 0;
+    	right: 0;
   }
   
   .number {
-    width: 100%;
-  	display: block;
-	text-align: center;
-	font-weight: bold;
-    font-size: 70vh;
+    	width: 100%;
+	display: block;
+    	text-align: center;
+    	font-weight: bold;
+    	font-size: 70vh;
+  }
+  
+  .score1 .number {
+  	-webkit-transform: rotate(90deg);
+  }
+  
+  .score1 .number {
+  	-webkit-transform: rotate(-90deg);
   }
   
   .next_server {
@@ -46,7 +55,7 @@
 	z-index: 2;
 	background: red;
 	color: white;
-	display: none;
+        display: none;
   }
   
   .next_server.active {
@@ -92,6 +101,7 @@ Score = (function() {
 })();
 
 $(function() {
+  FastClick.attach(document.body);
   var score1, score2;
   $('.next_server').click(function() {
     return $(this).removeClass('active');
