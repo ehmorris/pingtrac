@@ -139,19 +139,19 @@ Score = (function() {
 
 $(function() {
   var score1, score2;
-  $('.next_server').click(function() {
+  $('.next_server').on('touchend', function() {
     return $(this).removeClass('active');
   });
-  $('.win').click(function() {
+  $('.win').on('touchend', function() {
     location.reload();
   });
   score1 = new Score(0, $('.score1'));
   score2 = new Score(0, $('.score2'));
-  $('.score1').on('click touchend', function() {
+  $('.score1').on('touchend', function() {
     score1.update(1);
     return score1.render();
   });
-  return $('.score2').on('click touchend', function() {
+  return $('.score2').on('touchend', function() {
     score2.update(1);
     return score2.render();
   });
