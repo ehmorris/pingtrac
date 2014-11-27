@@ -66,7 +66,9 @@
   }
 
   .win {
-    -webkit-animation: win infinite both;
+    z-index: 3;
+    -webkit-animation: win;
+    -webkit-animation-duration: infinite;
   }
 
   .next_server.active, .win.active {
@@ -124,7 +126,7 @@ Score = (function() {
   };
 
   Score.prototype.win_condition = function() {
-    return Total >= 21;
+    return this.score >= 21;
   };
 
   return Score;
