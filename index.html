@@ -94,6 +94,9 @@ function FastClick(e){"use strict";var t,n=this;this.trackingClick=false,this.ta
 window.addEventListener('load', function() {
   new FastClick(document.body);
 }, false);
+window.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+});
 
 var Total = 0;
 var Score;
