@@ -67,12 +67,16 @@
 
   .win {
     z-index: 3;
-    -webkit-animation: win;
-    -webkit-animation-duration: infinite;
   }
 
   .next_server.active, .win.active {
 	display: block;
+  }
+  
+  .win.active {
+    -webkit-animation: win;
+    -webkit-animation-duration: .5s;
+    -webkit-animation-iteration-count: infinite;
   }
 </style>
 
