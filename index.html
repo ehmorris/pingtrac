@@ -106,7 +106,7 @@ Score = (function() {
     }
     if (this.win_condition()) {
       Total = 0;
-      @score = 0;
+      this.score = 0;
       return $('.win').addClass('active');
     }
   };
