@@ -147,11 +147,11 @@ $(function() {
   });
   score1 = new Score(0, $('.score1'));
   score2 = new Score(0, $('.score2'));
-  $('.score1').on('click, touchend', function() {
+  $('.score1').on('click touchend', function() {
     score1.update(1);
     return score1.render();
   });
-  return $('.score2').on('click, touchend', function() {
+  return $('.score2').on('click touchend', function() {
     score2.update(1);
     return score2.render();
   });
