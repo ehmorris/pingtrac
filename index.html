@@ -39,11 +39,11 @@
   }
   
   .score1 .number {
-  	-webkit-transform: rotate(-90deg);
+  	-webkit-transform: rotate(90deg);
   }
   
   .score2 .number {
-  	-webkit-transform: rotate(90deg);
+  	-webkit-transform: rotate(-90deg);
   }
   
   .next_server {
@@ -68,7 +68,6 @@
 <div class="next_server"></div>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="http://build.origami.ft.com/bundles/js?modules=fastclick"></script>
 
 <script>
 
@@ -104,12 +103,6 @@ Score = (function() {
   return Score;
 
 })();
-
-if ('addEventListener' in document) {
-  document.addEventListener('DOMContentLoaded', function() {
-    FastClick.attach(document.body);
-  }, false);
-}
 
 $(function() {
   var score1, score2;
