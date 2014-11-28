@@ -20,9 +20,9 @@ class Game
 
   render: ->
     if this.is_next_server()
-      show_next_server_message()
+      this.show_next_server_message()
     if this.win_condition()
-      show_win_message()
+      this.show_win_message()
 
 class Player extends Game
   constructor: (@score, @$text) ->
