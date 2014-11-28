@@ -14,6 +14,10 @@ class Game
   show_win_message: ->
     $('.win_message').addClass('active')
 
+  update: (amount = 1) ->
+    @total_score = @total_score + amount
+    this
+
   render: ->
     if this.is_next_server()
       show_next_server_message()
@@ -26,8 +30,7 @@ class Player extends Game
 
   update: (amount = 1) ->
     @score = @score + amount
-	@total_score = @total_score + amount
-	return this
+    this
 
   render: ->
     @$text.text(@score)
