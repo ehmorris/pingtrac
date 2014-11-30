@@ -1,0 +1,6 @@
+@include keyframes(win) {
+  0%  { background: red; }
+  25% { background: green; }	
+  50% { background: blue; }	
+  75% { background: green; }	
+}
