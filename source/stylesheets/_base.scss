@@ -1,0 +1,61 @@
+body {
+  font: 400 1em/1.4 $primary-font;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  @include user-select(none);
+}
+
+.score {
+  align-items: center;
+  display: flex;
+  @include position(absolute, 0px 0 0px 0);
+  width: 50%;
+  z-index: 1;
+
+  .number {
+    display: block;
+    font-size: 70vh;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.score1 {
+  left: 0;
+
+  .number {
+    @include transform(rotate(90deg));
+  }
+}
+
+.score2 {
+  right: 0;
+
+  .number {
+    @include transform(rotate(-90deg));
+  }
+}
+
+.message {
+  background: red;
+  color: white;
+  display: none;
+  @include position(absolute, 0px 0px 0px 0px);
+  text-align: center;
+  z-index: 2;
+
+  &.active {
+    display: block;
+  }
+}
+
+.message.win {
+  z-index: 3;
+
+  &.active {
+    @include animation(win .5s infinite);
+  }
+}
