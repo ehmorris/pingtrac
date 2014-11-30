@@ -8,8 +8,8 @@ body {
 }
 
 .score {
-  @include align-items(center);
-  @include display(flex);
+  align-items: center;
+  display: flex;
   @include position(absolute, 0px 0 0px 0);
   width: 50%;
   z-index: 1;
