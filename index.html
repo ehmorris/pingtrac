@@ -12,14 +12,21 @@
     <link href='stylesheets/application.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div class='score score1'>
+    <div class='player player1'>
       <span class='number'></span>
     </div>
-    <div class='score score2'>
+    <div class='player player2'>
       <span class='number'></span>
     </div>
-    <div class='message next_server'></div>
-    <div class='message win'></div>
+    <div class='message next_server'>
+      <audio src='audio/switch_server.ogg'></audio>
+    </div>
+    <div class='message surpassed'>
+      <audio src='audio/surpassed.ogg'></audio>
+    </div>
+    <div class='message win_message'>
+      <audio src='audio/winner.ogg'></audio>
+    </div>
     <script src='javascripts/application.js' type='text/javascript'></script>
   </body>
 </html>
