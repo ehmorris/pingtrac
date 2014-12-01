@@ -8,6 +8,9 @@ class Game
   is_next_server: ->
     @total_score % 5 == 0 and @total_score > 0
 
+  is_surpassed: ->
+    false
+
   sorted_scores: ->
     scores = new Array
     scores.push player.score for player in @players
@@ -15,19 +18,29 @@ class Game
       a - b
     .reverse()
 
-  win_condition: ->
+  is_game_won: ->
     scores = this.sorted_scores()
     highest = scores[0]
     second_highest = scores[1]
 
     highest >= 21 and (highest - second_highest >= 2)
 
-  show_next_server_message: ->
-    $('.next_server').addClass('active').on 'touchend', ->
+  next_server_message: ->
+    $next_server = $('.next_server')
+    $next_server.find('audio').get(0).play()
+    $next_server.addClass('active').on 'touchend', ->
       $(@).removeClass('active')
 
-  show_win_message: ->
-    $('.win_message').addClass('active').on 'touchend', ->
+  surpassed_message: ->
+    $surpassed = $('.surpassed')
+    $surpassed.find('audio').get(0).play()
+    $surpassed.addClass('active').on 'touchend', ->
+      $(@).removeClass('active')
+
+  win_message: ->
+    $win_message = $('.win_message')
+    $win_message.find('audio').get(0).play()
+    $win_message.addClass('active').on 'touchend', ->
       window.location.reload()
 
   increment: (player, amount = 1) ->
@@ -36,8 +49,9 @@ class Game
     this
 
   render: (player) ->
-    this.show_next_server_message() if this.is_next_server()
-    this.show_win_message() if this.win_condition()
+    this.next_server_message() if this.is_next_server()
+    this.surpassed_message() if this.is_surpassed()
+    this.win_message() if this.is_game_won()
     player.render()
 
 class Player extends Game
