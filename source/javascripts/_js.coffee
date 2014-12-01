@@ -1,6 +1,7 @@
 class Game
   total_score: 0
   players: new Array
+  score_history: new Array
 
   new_player: (container) ->
     @players.push(new Player(container))
@@ -9,11 +10,16 @@ class Game
     @total_score % 5 == 0 and @total_score > 0
 
   is_surpassed: ->
-    false
+    most_recent_three = @score_history[-3..]
+
+    return @score_history.length >= 3 and
+           Math.abs(@players[0].score - @players[1].score) == 1 and
+           most_recent_three[0].container == most_recent_three[1].container and
+           most_recent_three[1].container == most_recent_three[2].container
 
   sorted_scores: ->
     scores = new Array
-    scores.push player.score for player in @players
+    scores.push(player.score for player in @players)
     scores.sort (a, b) ->
       a - b
     .reverse()
@@ -32,10 +38,7 @@ class Game
       $(@).removeClass('active')
 
   surpassed_message: ->
-    $surpassed = $('.surpassed')
-    $surpassed.find('audio').get(0).play()
-    $surpassed.addClass('active').on 'touchend', ->
-      $(@).removeClass('active')
+    $('.surpassed').find('audio').get(0).play()
 
   win_message: ->
     $win_message = $('.win_message')
@@ -44,15 +47,18 @@ class Game
       window.location.reload()
 
   increment: (player, amount = 1) ->
-    @total_score = @total_score + amount
     player.increment(amount)
+    @total_score = @total_score + amount
+    @score_history.push
+      'player': player.container
+      'score': player.score
     this
 
   render: (player) ->
+    player.render()
     this.next_server_message() if this.is_next_server()
     this.surpassed_message() if this.is_surpassed()
     this.win_message() if this.is_game_won()
-    player.render()
 
 class Player extends Game
   score: 0
