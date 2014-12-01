@@ -1,46 +1,66 @@
 class Game
-  constructor: (@total_score) ->
-    @total_score = 0
+  total_score: 0
+  players: new Array
+
+  new_player: (container) ->
+    @players.push(new Player(container))
 
   is_next_server: ->
-    @total_score % 5 == 0
+    @total_score % 5 == 0 and @total_score > 0
+
+  sorted_scores: ->
+    scores = new Array
+    scores.push player.score for player in @players
+    scores.sort (a, b) ->
+      a - b
+    .reverse()
 
   win_condition: ->
-    @total_score > 20
+    scores = this.sorted_scores()
+    highest = scores[0]
+    second_highest = scores[1]
+
+    highest >= 21 and (highest - second_highest >= 2)
 
   show_next_server_message: ->
-    $('.next_server').addClass('active')
+    $('.next_server').addClass('active').on 'touchend', ->
+      $(@).removeClass('active')
 
   show_win_message: ->
-    $('.win_message').addClass('active')
+    $('.win_message').addClass('active').on 'touchend', ->
+      window.location.reload()
 
-  update: (amount = 1) ->
+  increment: (player, amount = 1) ->
     @total_score = @total_score + amount
+    player.increment(amount)
     this
 
-  render: ->
-    if this.is_next_server()
-      this.show_next_server_message()
-    if this.win_condition()
-      this.show_win_message()
+  render: (player) ->
+    this.show_next_server_message() if this.is_next_server()
+    this.show_win_message() if this.win_condition()
+    player.render()
 
 class Player extends Game
-  constructor: (@score, @$text) ->
+  score: 0
+
+  constructor: (@container) ->
+    @$container = $(@container)
     this.render()
 
-  update: (amount = 1) ->
+  increment: (amount = 1) ->
     @score = @score + amount
-    this
 
   render: ->
-    @$text.text(@score)
+    @$container.find('.number').text(@score)
 
 $ ->
-  score1 = new Player(0, $('.score1 .number'))
-  score2 = new Player(0, $('.score2 .number'))
+  window.pingtrac_game = new Game
 
-  $('.score1').on 'touchend', ->
-    score1.update(1).render()
+  pingtrac_game.new_player('.player1')
+  pingtrac_game.new_player('.player2')
 
-  $('.score2').on 'touchend', ->
-    score2.update(1).render()
+  attach_render_event = (player) ->
+    player.$container.on 'touchend', ->
+      pingtrac_game.increment(player).render(player)
+
+  attach_render_event(player) for player in pingtrac_game.players

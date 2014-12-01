@@ -7,7 +7,7 @@ body {
   @include user-select(none);
 }
 
-.score {
+.player {
   align-items: center;
   display: flex;
   @include position(absolute, 0px 0 0px 0);
@@ -23,7 +23,7 @@ body {
   }
 }
 
-.score1 {
+.player1 {
   left: 0;
 
   .number {
@@ -31,7 +31,7 @@ body {
   }
 }
 
-.score2 {
+.player2 {
   right: 0;
 
   .number {
@@ -52,7 +52,7 @@ body {
   }
 }
 
-.message.win {
+.message.win_message {
   z-index: 3;
 
   &.active {
