@@ -1,11 +1,12 @@
-Players = new Mongo.Collection("players")
+Players = new Mongo.Collection('players')
 
 if (Meteor.isClient) {
   Template.body.helpers({
     players: function() {
       return Players.find({}, {limit: 2})
     },
-    total: function() {
+
+    total_score: function() {
       var total = 0
       Players.find({}).forEach(function(player) {
         total = total + player.score
@@ -15,26 +16,39 @@ if (Meteor.isClient) {
   })
 
   Template.body.events({
-    "submit .new-player": function(event) {
-      if (Players.find({}).count() < 2) {
-        Players.insert({
-          name: event.target.name.value,
-          score: 0
-        })
-      }
-      event.target.name.value = ""
+    'submit .new-player': function(event) {
+      Meteor.call('add_player', event.target.name.value)
       return false
+    },
+
+    'click .reset': function() {
+      Meteor.call('remove_all_players')
     }
   })
 
   Template.player.events({
-    "click .increase": function(event) {
-      Players.update(this._id, {$set: {"score": this.score + 1}})
-      return false
-    },
-    "click .delete": function(event) {
-      Players.remove(this._id)
-      return false
+    'click .increase': function() {
+      Meteor.call('increase_player_score', this)
     }
   })
 }
+
+Meteor.methods({
+  add_player: function(name) {
+    if (Players.find({}).count() >= 2) {
+      throw new Meteor.Error('max-players', 'There can only be two players per game')
+    }
+    Players.insert({
+      name: name,
+      score: 0
+    })
+  },
+
+  increase_player_score: function(player) {
+    Players.update(player._id, {$set: {'score': player.score + 1}})
+  },
+
+  remove_all_players: function() {
+    Players.remove({})
+  }
+})
