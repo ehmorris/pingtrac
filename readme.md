@@ -1,4 +1,4 @@
-# Pingtrac
+# Pingtrac (Meteor variant)
 
 # Setup
 * Run `bundle install`

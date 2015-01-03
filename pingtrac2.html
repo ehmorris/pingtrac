@@ -1,0 +1,24 @@
+<head>
+  <title>pingtrac2</title>
+</head>
+
+<body>
+  <form class="new-player">
+    <p>New player <input type="text" name="name" placeholder="Player name" /></p>
+  </form>
+
+  <ul>
+    <li>Total score: {{total}}</li>
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </ul>
+</body>
+
+<template name="player">
+  <li>
+    {{name}}: {{score}}
+    <button class="increase">Increase score</button>
+    <button class="delete">Delete</button>
+  </li>
+</template>
